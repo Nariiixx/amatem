@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Página Inicial</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .card {
+            background: #fff;
+            padding: 30px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Meu Projeto</h1>
+</header>
+
+<main>
+    <div class="card">
+        <h2>Bem-vindo, {{ request.user.username }} 👋</h2>
+        <p>
+            Você está logado com sucesso.<br>
+            Esta é a página inicial do sistema.
+        </p>
+    </div>
+</main>
+
+</body>
+</html>
