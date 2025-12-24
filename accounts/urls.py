@@ -7,4 +7,7 @@ urlpatterns = [
     path('activation-success/', views.activation_success, name='activation_success'),
     path('', views.home_view, name='home'),
     path('resend-activation-email/', views.resend_activation_email, name='resend_activation_email'),
+    path('logout/', views.logout_view, name='logout'),
+    path('password-reset/', views.request_password_reset, name='password_reset'),
+    path('reset/<uuid:token>/', views.reset_password, name='reset_password'),
 ]

@@ -1,9 +1,12 @@
+from django.conf import settings
+from django.utils import timezone
+import uuid
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=15, unique=True)
+    fullname = models.CharField(max_length=150, unique=True)
 
     coins = models.BigIntegerField(default=0)
     points = models.BigIntegerField(default=0)
@@ -14,3 +17,20 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+class PasswordResetToken(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    token = models.UUIDField(default=uuid.uuid4, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    
+    def is_expired(self):
+        return timezone.now() > self.expires_at
+    
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    photo = models.ImageField(upload_to='profiles/', blank=True, null=True)
+
+    def __str__(self):
+        return f'Perfil de {self.user.email}'

@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout, get_user_model
+from django.contrib.auth.hashers import make_password
 from django.core.mail import EmailMessage
 from django.urls import reverse
 from django.http import HttpResponse
@@ -11,7 +12,8 @@ from django.utils.encoding import force_bytes, force_str
 
 from .forms import RegisterForm, LoginForm
 from .tokens import account_activation_token
-from .models import CustomUser
+from .models import CustomUser, PasswordResetToken, Profile
+from .utils import create_reset_token
 
 
 def register_view(request):
@@ -85,33 +87,33 @@ def login_view(request):
 
 def resend_activation_email(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        email = request.POST.get('email')    
         
         try:
             user = CustomUser.objects.get(email=email)
-        except CustomUser.DoesNotExist:
+        except CustomUser.DoesNotExist:   #se o email não for encontrado redireciona para pagina resend_activation 
             messages.error(request, 'Email não encontrado.')
             return redirect('resend_activation_email')
         
-        if user.is_active:
+        if user.is_active:      #verifica se a conta esta ativa 
             messages.info(request, 'Sua conta já está ativa. Faça login.')
             return redirect('login')
         
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = account_activation_token.make_token(user)
         
-        link = request.build_absolute_uri(
+        link = request.build_absolute_uri(     #link de ativação de conta que é a junçao de uid e token
             reverse('activate', kwargs={'uidb64': uid, 'token': token})
         )
         
-        email = EmailMessage(
+        email = EmailMessage(      #o email que vai ser enviado
             'Reenvio do link de ativação',
             f'Olá!\n\nClique no link abaixo para ativar sua conta:\n\n{link}\n\nSe você não criou esta conta, ignore este email.',
             to=[user.email]
         )
-        email.send()
+        email.send()   #envia o email
         
-        messages.success(request, 'Link de ativação reenviado! Verifique seu email.')
+        messages.success(request, 'Link de ativação reenviado! Verifique seu email.')   #mostra uma mensagem notificando que foi enviado o email
         return redirect('login')
     
     return render(request, 'accounts/resend_activation_email.html')
@@ -119,3 +121,50 @@ def resend_activation_email(request):
 @login_required
 def home_view(request):
     return render(request, 'accounts/home.html')
+
+def logout_view(request):
+    logout(request)    #encerra a sessão do usuário
+    return redirect('login') #redireciona para a pagina de login
+
+User = get_user_model()
+
+def request_password_reset(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        
+        try:
+            user = User.object.get(email=email)
+            token_obj = create_reset_token(user)
+            reset_link = f"http://localhost:8000/reset/{token_obj.token}/"   #envia o link pra resetar a senha pelo email
+            
+            email = EmailMessage(      #o email que vai ser enviado
+            'Redefinição de senha',
+            f'Olá!\n\nClique no link abaixo para redefinir sua senha:\n\n{reset_link}\n\nSe você não criou esta conta, ignore este email.',
+            to=[user.email]
+            )
+            email.send()   #envia o email
+            #send_mail(reset_link)
+        except User.DoesNotExist:
+            pass #nunca revela se existe ou não
+    return render(request, 'accounts/request_reset.html')
+
+def reset_password(request, token):
+    token_obj = get_object_or_404(PasswordResetToken, token=token)
+    
+    if token_obj.is_expired():
+        return render(request, 'accounts/token_expired.html')
+    
+    if request.method == 'POST':
+        new_password = request.POST.get('password')
+        
+        user = token_obj.user
+        user.password = make_password(new_password)
+        user.save()
+        
+        token_obj.delete() #token é descartavel
+        return redirect('login')
+    return render(request, 'accounts/reset_form.html')
+
+def conf_perfil_view(request):
+    
+    return 
