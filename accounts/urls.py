@@ -10,4 +10,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('password-reset/', views.request_password_reset, name='password_reset'),
     path('reset/<uuid:token>/', views.reset_password, name='reset_password'),
+    path('meu-perfil/', views.my_profile, name='my_profile'),
+    path('perfil/<str:username>/', views.profile_view, name='profile_view'),
+    path('perfil/editar/', views.profile_edit, name='profile_edit'),
 ]

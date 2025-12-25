@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, ProfileForm
 from .tokens import account_activation_token
 from .models import CustomUser, PasswordResetToken, Profile
 from .utils import create_reset_token
@@ -165,6 +165,27 @@ def reset_password(request, token):
         return redirect('login')
     return render(request, 'accounts/reset_form.html')
 
-def conf_perfil_view(request):
+
+@login_required
+def profile_edit(request):
+    #serve pra configurar o perfil do usuario
+    profile = request.user.profile
     
-    return 
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('my_profile')
+    else:
+        form = ProfileForm(instance=profile)
+            
+    return render(request, 'accounts/profile_edit.html', {'form': form})
+
+@login_required
+def my_profile(request):
+    return render(request, 'accounts/profile_view.html', {'profile_user': request.user})
+
+@login_required
+def profile_view(request, username):
+    user = get_object_or_404(CustomUser, username=username)
+    return render(request, 'accounts/profile_view.html', {'profile_user': user})
