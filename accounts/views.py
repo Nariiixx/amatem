@@ -123,6 +123,7 @@ def home_view(request):
     return render(request, 'accounts/home.html')
 
 def logout_view(request):
+    #não foi colocado no home----------------------------------------------------------------+
     logout(request)    #encerra a sessão do usuário
     return redirect('login') #redireciona para a pagina de login
 
@@ -181,10 +182,14 @@ def profile_edit(request):
             
     return render(request, 'accounts/profile_edit.html', {'form': form})
 
+
+#PENDENTE
 @login_required
 def my_profile(request):
     return render(request, 'accounts/profile_view.html', {'profile_user': request.user})
 
+
+#PENDENTE
 @login_required
 def profile_view(request, username):
     user = get_object_or_404(CustomUser, username=username)
