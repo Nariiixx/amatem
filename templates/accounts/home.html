@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+
+    {%load static%}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <a href="{% url 'logout'%}">Sair</a>
+<header>
+    <h1>Meu Projeto</h1>
+</header>
+
+<main>
+    <div class="card">
+        <h2>Bem-vindo, {{ request.user.username }} 👋</h2>
+        <p>
+            Você está logado com sucesso.<br>
+            Esta é a página inicial do sistema.
+        </p>
+    </div>
+</main>
+
+</body>
+</html>

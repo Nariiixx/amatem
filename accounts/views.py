@@ -183,13 +183,13 @@ def profile_edit(request):
     return render(request, 'accounts/profile_edit.html', {'form': form})
 
 
-#PENDENTE
+#PENDENTE--------------------------
 @login_required
 def my_profile(request):
     return render(request, 'accounts/profile_view.html', {'profile_user': request.user})
 
 
-#PENDENTE
+#PENDENTE------------------------------------
 @login_required
 def profile_view(request, username):
     user = get_object_or_404(CustomUser, username=username)
