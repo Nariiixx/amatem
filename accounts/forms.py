@@ -17,3 +17,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['bio', 'photo']
+class ResetPasswordForm(forms.Form):
+    email = forms.EmailField(label='Email', required=True)
+    password1 =  forms.CharField(widget=forms.PasswordInput, label='Nova senha')
+    password2 =  forms.CharField(widget=forms.PasswordInput, label='Confirme a nova senha')
