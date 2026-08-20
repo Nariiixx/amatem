@@ -1,59 +1,119 @@
+:root {
+    --azul-escuro: #071f38;
+    --azul-principal: #0d3b66;
+    --azul-claro: #4fc3dc;
+    --verde-logo: #8bc34a;
+    --verde-escuro: #4a7c2f;
+    --branco: #ffffff;
+    --cinza-texto: #a9bccf;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--azul-escuro);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
+
 .container {
-    background: #fff;
-    padding: 25px;
+    background: var(--azul-principal);
+    padding: 30px 25px;
     width: 350px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    border-top: 4px solid var(--verde-logo);
 }
+
+.logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    background: var(--azul-escuro);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.logo img {
+    max-width: 160px;
+    height: auto;
+}
+
 h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: var(--branco);
 }
+
+form label {
+    color: var(--cinza-texto);
+    font-size: 14px;
+}
+
 form input {
     width: 100%;
     padding: 10px;
-    margin: 8px 0;
+    margin: 8px 0 14px;
+    border: 1px solid var(--azul-claro);
+    border-radius: 4px;
+    background: var(--azul-escuro);
+    color: var(--branco);
+    box-sizing: border-box;
 }
+
+form input:focus {
+    outline: none;
+    border-color: var(--verde-logo);
+}
+
 button {
     width: 100%;
     padding: 10px;
-    background: #2196F3;
+    background: var(--verde-escuro);
     border: none;
-    color: white;
+    color: var(--branco);
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
     border-radius: 4px;
+    transition: background 0.2s ease;
 }
+
 button:hover {
-    background: #1976D2;
+    background: var(--verde-logo);
+    color: var(--azul-escuro);
 }
+
 .messages {
     margin-bottom: 10px;
 }
+
 .messages p {
-    background: #e57373;
+    background: #c0392b;
     color: white;
     padding: 8px;
     border-radius: 4px;
     font-size: 14px;
 }
+
 .success {
-    background: #81c784 !important;
+    background: var(--verde-logo) !important;
+    color: var(--azul-escuro) !important;
 }
+
 .register-link {
     text-align: center;
     margin-top: 15px;
 }
+
 .register-link a {
     text-decoration: none;
-    color: #2196F3;
+    color: var(--azul-claro);
+    font-weight: bold;
+}
+
+.register-link a:hover {
+    color: var(--verde-logo);
 }

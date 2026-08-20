@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 
-    {%load static%}
+    {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 </head>
 <body>
 
 <div class="container">
+    <div class="logo">
+        <img src="{% static 'img/logo-tapajos.png' %}" alt="Tapajós Distribuidora">
+    </div>
+
     <h2>Entrar</h2>
 
     <!-- mensagens do Django -->

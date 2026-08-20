@@ -1,31 +1,58 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de {{ profile_user.username }}</title>
 
-{% block content %}
-<div class="profile-container">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+</head>
+<body>
 
-    <!-- Avatar -->
-    {% if profile_user.profile.photo %}
-        <img src="{{ profile_user.profile.photo.url }}" class="avatar">
-    {% else %}
-        <div class="avatar placeholder">Sem foto</div>
-    {% endif %}
+<header>
+    <h1>Meu Projeto</h1>
+    <a href="{% url 'my_profile' %}" class="back-link">Voltar</a>
+</header>
 
-    <!-- Dados -->
-    <h2>@{{ profile_user.username }}</h2>
-    <p>{{ profile_user.profile.bio|default:"Sem bio" }}</p>
+<main>
+    <div class="profile-container">
 
-    <div class="stats">
-        <p>Nível: {{ profile_user.nivel }}</p>
-        <p>XP: {{ profile_user.exp }}</p>
-        <p>Moedas: {{ profile_user.coins }}</p>
+        <!-- Avatar -->
+        {% if profile_user.profile.photo %}
+            <img src="{{ profile_user.profile.photo.url }}" class="avatar">
+        {% else %}
+            <div class="avatar placeholder">Sem foto</div>
+        {% endif %}
+
+        <!-- Dados -->
+        <h2>@{{ profile_user.username }}</h2>
+        <p class="bio">{{ profile_user.profile.bio|default:"Sem bio" }}</p>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-label">Nível</span>
+                <span class="stat-value">{{ profile_user.nivel }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">XP</span>
+                <span class="stat-value">{{ profile_user.exp }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Moedas</span>
+                <span class="stat-value">{{ profile_user.coins }}</span>
+            </div>
+        </div>
+
+        <!-- Botão editar (SÓ para o dono do perfil) -->
+        {% if request.user == profile_user %}
+            <a href="{% url 'profile_edit' %}" class="btn">
+                Editar perfil
+            </a>
+        {% endif %}
+
     </div>
+</main>
 
-    <!-- Botão editar (SÓ para o dono do perfil) -->
-    {% if request.user == profile_user %}
-        <a href="{% url 'profile_edit' %}" class="btn">
-            Editar perfil
-        </a>
-    {% endif %}
-
-</div>
-{% endblock %}
+</body>
+</html>

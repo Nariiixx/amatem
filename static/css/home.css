@@ -1,40 +1,107 @@
+:root {
+    --azul-escuro: #071f38;
+    --azul-principal: #0d3b66;
+    --azul-claro: #4fc3dc;
+    --verde-logo: #8bc34a;
+    --branco: #ffffff;
+    --cinza-texto: #a9bccf;
+}
+
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6f8;
+    background: var(--azul-escuro);
+    color: var(--branco);
+    min-height: 100vh;
 }
+
 header {
-    background: #2c3e50;
-    color: #fff;
+    background: var(--azul-principal);
+    color: var(--branco);
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
+
 header h1 {
     margin: 0;
     font-size: 20px;
 }
-header a {
-    color: #fff;
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--azul-claro);
+    color: var(--azul-escuro);
+    overflow: hidden;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.profile-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.profile-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-icon:hover {
+    background: var(--verde-logo);
+    transform: scale(1.08);
+}
+
+header a.logout-link {
+    color: var(--branco);
     text-decoration: none;
     font-weight: bold;
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: 1px solid var(--azul-claro);
+    transition: background 0.2s ease;
 }
+
+header a.logout-link:hover {
+    background: var(--verde-logo);
+    border-color: var(--verde-logo);
+    color: var(--azul-escuro);
+}
+
 main {
     padding: 40px;
     text-align: center;
 }
+
 .card {
-    background: #fff;
+    background: var(--azul-principal);
     padding: 30px;
     max-width: 500px;
     margin: auto;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    border-top: 4px solid var(--verde-logo);
 }
+
 .card h2 {
     margin-bottom: 10px;
+    color: var(--branco);
 }
+
 .card p {
-    color: #555;
+    color: var(--cinza-texto);
+    line-height: 1.5;
 }
