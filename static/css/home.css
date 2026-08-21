@@ -105,3 +105,59 @@ main {
     color: var(--cinza-texto);
     line-height: 1.5;
 }
+.grid-funcionalidades {
+    max-width: 500px;
+    margin: 20px auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.cubo-funcionalidade {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--azul-principal);
+    border-radius: 8px;
+    padding: 18px;
+    text-decoration: none;
+    color: var(--branco);
+    border-top: 4px solid var(--verde-logo);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cubo-funcionalidade:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.cubo-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 8px;
+    background: var(--azul-escuro);
+    color: var(--azul-claro);
+}
+
+.cubo-icone svg {
+    width: 24px;
+    height: 24px;
+}
+
+.cubo-texto h3 {
+    margin: 0 0 4px;
+    font-size: 15px;
+    color: var(--branco);
+}
+
+.cubo-texto p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--cinza-texto);
+    line-height: 1.4;
+}
