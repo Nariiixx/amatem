@@ -19,6 +19,8 @@ class Pedido(models.Model):
         ("tratar", "Tratar"),
         ("recomposicao", "Recomposição"),
         ("prazo", "Prazo"),
+        ("nivea", "Nívea"),
+        ("bonificacao", "Bonificação"),
         ("sem_categoria", "Sem categoria"),
     ]
 
@@ -37,6 +39,7 @@ class Pedido(models.Model):
     vlatend = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     codcob = models.CharField(max_length=10, blank=True, null=True)
     obs = models.TextField(blank=True, null=True)
+    obs1 = models.TextField(blank=True, null=True)
     obs2 = models.TextField(blank=True, null=True)
 
     categoria = models.CharField(max_length=20, choices=CATEGORIA_CHOICES, default="sem_categoria")

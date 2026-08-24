@@ -11,11 +11,19 @@
 <body>
 
 <header>
-    <div class="titulo">
-        <h1>Painel de Triagem de Pedidos</h1>
-        <span class="subtitulo">
-            {% if pedidos %}{{ contagens.todos }} pedido(s) carregado(s){% else %}Nenhum arquivo carregado ainda{% endif %}
-        </span>
+    <div class="titulo-area">
+        <a href="{% url 'home' %}" class="voltar-home" title="Voltar para o início">
+            <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 11l9-8 9 8"/>
+                <path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>
+            </svg>
+        </a>
+        <div class="titulo">
+            <h1>Painel de Triagem de Pedidos</h1>
+            <span class="subtitulo">
+                {% if pedidos %}{{ contagens.todos }} pedido(s) carregado(s){% else %}Nenhum arquivo carregado ainda{% endif %}
+            </span>
+        </div>
     </div>
 
     <div class="header-acoes">
@@ -68,6 +76,12 @@
         <a href="?categoria=prazo" class="filtro {% if categoria_atual == 'prazo' %}ativo{% endif %}" data-cor="verde">
             Prazo <span class="badge">{{ contagens.prazo }}</span>
         </a>
+        <a href="?categoria=nivea" class="filtro {% if categoria_atual == 'nivea' %}ativo{% endif %}" data-cor="rosa">
+            Nívea <span class="badge">{{ contagens.nivea }}</span>
+        </a>
+        <a href="?categoria=bonificacao" class="filtro {% if categoria_atual == 'bonificacao' %}ativo{% endif %}" data-cor="dourado">
+            Bonificação <span class="badge">{{ contagens.bonificacao }}</span>
+        </a>
         <a href="?categoria=sem_categoria" class="filtro {% if categoria_atual == 'sem_categoria' %}ativo{% endif %}" data-cor="cinza">
             Sem categoria <span class="badge">{{ contagens.sem_categoria }}</span>
         </a>
@@ -106,6 +120,8 @@
                         <option value="tratar" {% if pedido.categoria == 'tratar' %}selected{% endif %}>Tratar</option>
                         <option value="recomposicao" {% if pedido.categoria == 'recomposicao' %}selected{% endif %}>Recomposição</option>
                         <option value="prazo" {% if pedido.categoria == 'prazo' %}selected{% endif %}>Prazo</option>
+                        <option value="nivea" {% if pedido.categoria == 'nivea' %}selected{% endif %}>Nívea</option>
+                        <option value="bonificacao" {% if pedido.categoria == 'bonificacao' %}selected{% endif %}>Bonificação</option>
                         <option value="sem_categoria" {% if pedido.categoria == 'sem_categoria' %}selected{% endif %}>Sem categoria</option>
                     </select>
                     {% if pedido.atrasado %}
@@ -124,9 +140,10 @@
                 <div class="col-completa"><span>Valor:</span> R$ {{ pedido.vlatend|default:"—" }}</div>
             </div>
 
-            {% if pedido.obs or pedido.obs2 %}
+            {% if pedido.obs or pedido.obs1 or pedido.obs2 %}
                 <div class="card-obs">
                     {% if pedido.obs %}<div>Obs: {{ pedido.obs }}</div>{% endif %}
+                    {% if pedido.obs1 %}<div>Obs1: {{ pedido.obs1 }}</div>{% endif %}
                     {% if pedido.obs2 %}<div>Obs2: {{ pedido.obs2 }}</div>{% endif %}
                 </div>
             {% endif %}

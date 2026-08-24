@@ -6,6 +6,8 @@
     --verde-escuro: #4a7c2f;
     --laranja: #e0a94f;
     --roxo: #c48ce0;
+    --rosa: #e091c9;
+    --dourado: #f0c419;
     --cinza: #9aa5b1;
     --branco: #ffffff;
     --cinza-texto: #a9bccf;
@@ -30,6 +32,37 @@ header {
     flex-wrap: wrap;
     gap: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.titulo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.voltar-home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50%;
+    background: var(--azul-escuro);
+    color: var(--azul-claro);
+    border: 1px solid var(--azul-claro);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.voltar-home svg {
+    width: 20px;
+    height: 20px;
+}
+
+.voltar-home:hover {
+    background: var(--verde-logo);
+    border-color: var(--verde-logo);
+    color: var(--azul-escuro);
 }
 
 header h1 {
@@ -138,6 +171,8 @@ main { padding: 22px 24px; }
 .filtro[data-cor="ciano"] { background: #123a63; color: var(--azul-claro); }
 .filtro[data-cor="laranja"] { background: #3a2a12; color: var(--laranja); }
 .filtro[data-cor="roxo"] { background: #2a123a; color: var(--roxo); }
+.filtro[data-cor="rosa"] { background: #3a1230; color: var(--rosa); }
+.filtro[data-cor="dourado"] { background: #3a3212; color: var(--dourado); }
 .filtro[data-cor="verde"] { background: #1f3a12; color: var(--verde-logo); }
 .filtro[data-cor="cinza"] { background: #2b2b2b; color: var(--cinza); }
 .filtro.ativo { border-color: currentColor; }
@@ -220,6 +255,8 @@ main { padding: 22px 24px; }
 .card.categoria-tratar { border-top-color: var(--laranja); }
 .card.categoria-recomposicao { border-top-color: var(--roxo); }
 .card.categoria-prazo { border-top-color: var(--verde-logo); }
+.card.categoria-nivea { border-top-color: var(--rosa); }
+.card.categoria-bonificacao { border-top-color: var(--dourado); }
 .card.atrasado { box-shadow: 0 0 0 1.5px #e57373; }
 
 .card-topo {

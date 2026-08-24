@@ -9,7 +9,7 @@ from django.views.decorators.http import require_POST
 from .models import Pedido, SuporteMembro
 from .utils import categorizar, gerar_chave, ler_planilha, parse_data
 
-CATEGORIAS_VALIDAS = {"liberar", "tratar", "recomposicao", "prazo", "sem_categoria"}
+CATEGORIAS_VALIDAS = {"liberar", "tratar", "recomposicao", "prazo", "nivea", "bonificacao", "sem_categoria"}
 
 
 @login_required
@@ -44,6 +44,8 @@ def dashboard(request):
         "tratar": todos.filter(categoria="tratar").count(),
         "recomposicao": todos.filter(categoria="recomposicao").count(),
         "prazo": todos.filter(categoria="prazo").count(),
+        "nivea": todos.filter(categoria="nivea").count(),
+        "bonificacao": todos.filter(categoria="bonificacao").count(),
         "sem_categoria": todos.filter(categoria="sem_categoria").count(),
     }
     atrasados_count = todos.filter(data_pedido__lt=limite).count()
@@ -101,6 +103,7 @@ def importar_planilha(request):
             "vlatend": row.get("vlatend") or None,
             "codcob": row.get("codcob"),
             "obs": row.get("obs"),
+            "obs1": row.get("obs1"),
             "obs2": row.get("obs2"),
             "motivo_categoria": motivo,
         }
